@@ -1,0 +1,20 @@
+import cv2
+
+# Read the image from the specified path
+image = cv2.imread(r"C:\Users\nagin\Downloads\OIP (1).jpg")
+
+# Flip the image horizontally (along Y-axis)
+flipped_image = cv2.flip(image, 1)
+
+# Rotate the flipped image 90 degrees counterclockwise (equivalent to 270 degrees clockwise)
+rotated_image = cv2.rotate(flipped_image, cv2.ROTATE_90_COUNTERCLOCKWISE)
+
+# Display the images
+cv2.imshow("Original Image", image)
+cv2.imshow("Rotated 270-degree Clockwise Along Y-axis", rotated_image)
+
+# Save the rotated image
+cv2.imwrite(r"C:\Users\nagin\Downloads\rotated_image_270.jpg", rotated_image)
+
+cv2.waitKey(0)
+cv2.destroyAllWindows()
