@@ -1,0 +1,28 @@
+import cv2
+import numpy as np
+
+# Read the image from the specified path
+image = cv2.imread(r"C:\Users\nagin\Downloads\OIP (3).jpg")
+
+# Get image dimensions
+rows, cols, ch = image.shape
+
+# Define points for the perspective transformation
+pts1 = np.float32([[50, 50], [400, 50], [50, 400], [400, 400]])
+pts2 = np.float32([[10, 100], [300, 50], [100, 300], [350, 350]])
+
+# Compute the perspective transformation matrix
+matrix = cv2.getPerspectiveTransform(pts1, pts2)
+
+# Apply the perspective transformation
+transformed_image = cv2.warpPerspective(image, matrix, (cols, rows))
+
+# Display the images
+cv2.imshow("Original Image", image)
+cv2.imshow("Perspective Transformed Image", transformed_image)
+
+# Save the transformed image
+cv2.imwrite(r"C:\Users\nagin\Downloads\perspective_transformed.jpg", transformed_image)
+
+cv2.waitKey(0)
+cv2.destroyAllWindows()
