@@ -1,0 +1,27 @@
+import cv2
+
+# Read the image from the specified path
+image = cv2.imread(r"C:\Users\nagin\Downloads\green.jpeg")
+
+# Reduce the image size (50% of original)
+scale_percent = 50  # percent of original size
+width = int(image.shape[1] * scale_percent / 100)
+height = int(image.shape[0] * scale_percent / 100)
+dim = (width, height)
+resized_image = cv2.resize(image, dim, interpolation=cv2.INTER_AREA)
+
+# Flip the resized image horizontally (along Y-axis)
+flipped_image = cv2.flip(resized_image, 1)
+
+# Rotate the flipped image 180 degrees
+rotated_image = cv2.rotate(flipped_image, cv2.ROTATE_180)
+
+# Display the images
+cv2.imshow("Original Image (Resized)", resized_image)
+cv2.imshow("Rotated 180-degree Clockwise Along Y-axis", rotated_image)
+
+# Save the rotated image
+cv2.imwrite(r"C:\Users\nagin\Downloads\rotated_image.jpg", rotated_image)
+
+cv2.waitKey(0)
+cv2.destroyAllWindows()
