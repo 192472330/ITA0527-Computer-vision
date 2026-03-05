@@ -1,0 +1,21 @@
+import cv2
+import numpy as np
+
+# Read the source image
+image = cv2.imread(r"C:\Users\nagin\OneDrive\Pictures\Screenshots\Screenshot 2026-03-05 144142.png")
+
+# Resize image
+image = cv2.resize(image, None, fx=0.5, fy=0.5)
+
+# Crop ROI
+roi = image[100:300, 200:400]   # height=200, width=200
+
+# Copy and paste ROI to another place with same size
+image[100:300, 50:250] = roi
+
+# Display images
+cv2.imshow("Original Image", image)
+cv2.imshow("Cropped ROI", roi)
+
+cv2.waitKey(0)
+cv2.destroyAllWindows()
