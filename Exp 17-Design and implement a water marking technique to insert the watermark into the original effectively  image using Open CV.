@@ -1,0 +1,28 @@
+import cv2
+import numpy as np
+
+# Read the original image
+image = cv2.imread(r"C:\Users\nagin\OneDrive\Pictures\Screenshots\Screenshot 2026-03-05 144142.png")
+
+# Resize image (optional)
+image = cv2.resize(image, None, fx=0.5, fy=0.5)
+
+# Define watermark text
+watermark_text = "computer vision"
+
+# Set position for watermark
+position = (50, 50)
+
+# Add watermark text
+cv2.putText(image, watermark_text, position,
+            cv2.FONT_HERSHEY_SIMPLEX, 1,
+            (255, 255, 255), 2, cv2.LINE_AA)
+
+# Display the watermarked image
+cv2.imshow("Watermarked Image", image)
+
+# Save the output image
+cv2.imwrite("watermarked_image.png", image)
+
+cv2.waitKey(0)
+cv2.destroyAllWindows()
