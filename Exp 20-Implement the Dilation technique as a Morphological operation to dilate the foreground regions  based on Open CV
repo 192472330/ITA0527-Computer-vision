@@ -1,0 +1,27 @@
+import cv2
+import numpy as np
+
+# Read the input image
+image = cv2.imread(r"C:\Users\nagin\OneDrive\Pictures\Screenshots\Screenshot 2026-03-05 144045.png")
+
+# Reduce image size to 50%
+image = cv2.resize(image, None, fx=0.5, fy=0.5)
+
+# Convert image to grayscale
+gray = cv2.cvtColor(image, cv2.COLOR_BGR2GRAY)
+
+# Create kernel (structuring element)
+kernel = np.ones((5,5), np.uint8)
+
+# Apply dilation
+dilated = cv2.dilate(gray, kernel, iterations=1)
+
+# Display images
+cv2.imshow("Original Image", image)
+cv2.imshow("Dilated Image", dilated)
+
+# Save output image
+cv2.imwrite("dilated_image.jpg", dilated)
+
+cv2.waitKey(0)
+cv2.destroyAllWindows()
