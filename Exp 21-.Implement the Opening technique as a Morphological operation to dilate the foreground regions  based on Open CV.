@@ -1,0 +1,21 @@
+import cv2
+import numpy as np
+
+# Read the image
+image = cv2.imread(r"C:\Users\nagin\Downloads\OIP (6).jpg")
+
+# Convert the image to grayscale
+gray_image = cv2.cvtColor(image, cv2.COLOR_BGR2GRAY)
+
+# Create kernel
+kernel = np.ones((5,5), np.uint8)
+
+# Apply Morphological Opening
+opened_image = cv2.morphologyEx(gray_image, cv2.MORPH_OPEN, kernel)
+
+# Display images
+cv2.imshow('Original Image', image)
+cv2.imshow('Opened Image', opened_image)
+
+cv2.waitKey(0)
+cv2.destroyAllWindows()
