@@ -1,0 +1,47 @@
+import cv2
+
+def detect_smile(image_path):
+    # Load cascades
+    face_cascade = cv2.CascadeClassifier(cv2.data.haarcascades + "haarcascade_frontalface_default.xml")
+    smile_cascade = cv2.CascadeClassifier(cv2.data.haarcascades + "haarcascade_smile.xml")
+
+    # Read image
+    image = cv2.imread(image_path)
+    if image is None:
+        print("Error: Image not found.")
+        return
+
+    # Resize to 70%
+    image = cv2.resize(image, None, fx=0.7, fy=0.7)
+
+    gray = cv2.cvtColor(image, cv2.COLOR_BGR2GRAY)
+
+    # Detect faces
+    faces = face_cascade.detectMultiScale(gray, scaleFactor=1.1, minNeighbors=5, minSize=(60, 60))
+
+    for (x, y, w, h) in faces:
+        # Draw face rectangle
+        cv2.rectangle(image, (x, y), (x + w, y + h), (255, 0, 0), 2)
+
+        # Use only lower half of face for smile detection
+        lower_face_gray = gray[y + h//2:y + h, x:x + w]
+        lower_face_color = image[y + h//2:y + h, x:x + w]
+
+        smiles = smile_cascade.detectMultiScale(
+            lower_face_gray,
+            scaleFactor=1.5,
+            minNeighbors=25,
+            minSize=(30, 30)
+        )
+
+        # Draw smile rectangles
+        for (sx, sy, sw, sh) in smiles:
+            cv2.rectangle(lower_face_color, (sx, sy), (sx + sw, sy + sh), (0, 255, 0), 2)
+
+    # Show result
+    cv2.imshow("Smile Detection", image)
+    cv2.waitKey(0)
+    cv2.destroyAllWindows()
+
+# Use your image path
+detect_smile(r"C:\Users\nagin\Downloads\oip 16.jpg")
